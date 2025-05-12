@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="C:\Users\Administrator\Desktop\TCC!!\TCC-CookiesDoPapai-main\TCC - melhorado\TCC\imagens">
+    <title>Cookies Do Papai</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fce5e5;
+            color: #FF9A9A;
+        }
+        header {
+            background-color: #fce5e5;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            font-size: 3rem;
+            color: #ff9090;
+            margin: 0;
+        }
+        nav {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #8B4513;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            color: #e67e22;
+        }
+        .inicio{
+            background-image: url('https://via.placeholder.com/1920x1080');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            width: 100%;
+        }
+        .inicio img {
+            display: block;
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .inicio h2 {
+            background-color: #FF9A9A(0, 0, 0, 0.6);
+            padding: 175px;
+            border-radius: 10px;
+        }
+        .produtos {
+            padding: 50px 0;
+            text-align: center;
+            background-color: #fce5e5;
+        }
+        .produtos h3 {
+            font-size: 3rem;
+            color: #FF9A9A;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .produtos .images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cookie {
+            background-color: #FFF8DC;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .cookie img {
+            width: 150%; 
+            height: auto; 
+            object-fit: cover;
+            border-radius: 10px;
+        }.highlight {
+            background: #ffefd5; 
+            border: 2px solid #FFC93C; 
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .highlight h3 {
+            color: #FFC93C
+            ; 
+        }
+        .highlight .price {
+            color: #d2691e; 
+            font-size: 1.2em;
+        }
+        .price {
+            font-weight: bold;
+            color: #ff9090;
+        }
+        footer {
+            background-color: #A66E38;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }  
+        .cookie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .cookie {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .cookie:hover {
+            transform: scale(1.05);
+        }
+        .cookie img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        #about-modal, #contact-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+    #about-modal-content, #contact-modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        text-align: left;
+    }
+    #close-about, #close-contact {
+        background-color: #723a1a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right;
+    }
+        #about-modal-content {
+         background-color: #975a37;
+        color: rgb(252, 252, 252);
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right; 
+        height: 75%;
+        width: 90%;
+        max-width: 800px; 
+
+
+        }
+        #cart-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro */
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+    #cart-modal-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: left;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+    }
+    #cart-modal-content h2 {
+        margin-top: 0;
+        color: #592203; /* Cor do título */
+    }
+    #close-cart {
+        background-color: #592203;
+        color: white;
+        border: none;
+        padding: 5px 8px;
+        cursor: pointer;
+        border-radius: 15px;
+        float: right;
+        transition: background-color 0.3s;
+    }
+    #close-cart:hover {
+        background-color: #f2a2a2; /* Cor de fundo ao passar o mouse */
+    }
+    #cart-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+    #cart-icon img {
+        width: 50px;
+        height: 50px;
+    }
+    #cart-count {
+        position: absolute;
+        top: 65px;
+        right: 5px;
+        background-color: #ff9090; /* Alterado */
+        color: white;
+        border-radius: 50%;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+    #finalize-purchase {
+        background-color: #592203;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.1em;
+        transition: background-color 0.3s;
+    }
+    #finalize-purchase:hover {
+        background-color: #ff9090; /* Alterado */
+    }
+    </style>
+</head>
+<body>
+    <header>
+      
+        <a href="note.html" style="position: absolute; left: 20px; top: 20px;">
+            <img src="cookiesdopapai.png" alt="Logo da Empresa" style="width: 150px; height: auto;">
+        </a>
+        <h1>Cookies do Papai</h1>
+        <nav>
+            <a href="#">Início</a>
+            <a href="javascript:void(0)" onclick="openAbout()">Sobre</a>
+            <a href="#">Produtos</a>
+            <a href="javascript:void(0)" onclick="openContact()">Contato</a>
+        </nav>
+    </header>
+</div>
+
+<div id="about-modal">
+    <div id="about-modal-content" style="text-align:center">
+        <button id="close-about" onclick="closeAbout()">Fechar</button>
+        
+        <h2>Sobre Nós</h2>
+        <p>A "Cookies do Papai" nasceu da paixão do meu marido pela culinária. Ele sempre gostou de cozinhar em casa e testar novas receitas, especialmente quando recebíamos visitas.  
+
+            No ano de 2024, com a chegada de nossa filha caçula, recebemos a visita de amigos que trouxeram cookies caseiros para nossa filha mais velha. Ela gostou tanto que pediu ao pai que preparasse uma receita semelhante. A partir disso, ele começou a pesquisar intensamente sobre o assunto, testando novos sabores a cada visita que recebíamos. <br>  
+            
+            Com o tempo, nossos amigos passaram a incentivar a comercialização dos cookies. Começamos, então, a compartilhar fotos no meu Instagram profissional e recebemos inúmeras mensagens de pessoas interessadas em adquiri-los. <br>
+            
+            Decidimos testar a aceitação do público em um final de semana, oferecendo nossos cookies para venda. O resultado foi um grande sucesso, com muitas pessoas demonstrando interesse e realizando compras. Diante dessa recepção positiva, resolvemos transformar essa paixão em um negócio.  
+            
+            Nossa identidade visual reflete a essência da marca: a logomarca traz o "Papai" ao lado de nossas duas filhas, Maria Tereza e Maria Luíza, simbolizando o amor e a dedicação que estão presentes em cada cookie que produzimos.</p>
+            <img src="e:\TCC - melhorado\TCC\fami.jfif" alt="Sobre Nós" style="width: 50%; max-width: 1000px; border-radius: 10px; margin-bottom: 20px;">
+    </div>
+</div>
+
+<div id="contact-modal">
+    <div id="contact-modal-content" style="text-align:center">
+        <button id="close-contact" onclick="closeContact()">Fechar</button>
+        
+        <h2>Sobre Nós</h2>
+        <p>A "Cookies do Papai" nasceu da paixão do meu marido pela culinária. Ele sempre gostou de cozinhar em casa e testar novas receitas, especialmente quando recebíamos visitas.  
+
+            No ano de 2024, com a chegada de nossa filha caçula, recebemos a visita de amigos que trouxeram cookies caseiros para nossa filha mais velha. Ela gostou tanto que pediu ao pai que preparasse uma receita semelhante. A partir disso, ele começou a pesquisar intensamente sobre o assunto, testando novos sabores a cada visita que recebíamos. <br>  
+            
+            Com o tempo, nossos amigos passaram a incentivar a comercialização dos cookies. Começamos, então, a compartilhar fotos no meu Instagram profissional e recebemos inúmeras mensagens de pessoas interessadas em adquiri-los. <br>
+            
+            Decidimos testar a aceitação do público em um final de semana, oferecendo nossos cookies para venda. O resultado foi um grande sucesso, com muitas pessoas demonstrando interesse e realizando compras. Diante dessa recepção positiva, resolvemos transformar essa paixão em um negócio.  
+            
+            Nossa identidade visual reflete a essência da marca: a logomarca traz o "Papai" ao lado de nossas duas filhas, Maria Tereza e Maria Luíza, simbolizando o amor e a dedicação que estão presentes em cada cookie que produzimos.</p>
+            <img src="e:\TCC - melhorado\TCC\fami.jfif" alt="Sobre Nós" style="width: 50%; max-width: 1000px; border-radius: 10px; margin-bottom: 20px;">
+    </div>
+</div>
+
+    </section>
+
+
+
+    <div id="cart-icon" onclick="redirectToCartPage()">
+            <img src="carrinhocookiee.png" alt="Carrinho" style="width: 80px; height: 80px; cursor:pointer;">
+            <span id="cart-count">0</span>
+        </div>
+    <!-- Notificação visual -->
+    <div id="cart-notification" style="display:none; position:fixed; top:30px; right:30px; background:#ff9090; color:white; padding:18px 30px; border-radius:10px; font-size:1.2em; z-index:9999; box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+        Item adicionado ao carrinho!
+    </div>
+    </header>
+
+  
+
+    
+    <section class="inicio" style="padding: 50px; background-color: #f8f8f8;">
+        <div class="carousel-container" style="position: relative; max-width: 60%; margin: auto; border-radius: 15px; box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); overflow: hidden;">
+            <div class="carousel-images" style="display: flex; transition: transform 0.5s ease-in-out;">
+                <img src="imagemslide3.jpeg" alt="Cookies 1" style="width: 100%; flex-shrink: 0;">
+                <img src="imagemslide1.jpeg" alt="Cookies 2" style="width: 100%; flex-shrink: 0;">
+                <img src="imagemslide2.jpeg" alt="Cookies 3" style="width: 100%; flex-shrink: 0;">
+                <img src="imagemslide4.jpeg" alt="Cookies 3" style="width: 100%; flex-shrink: 0;">
+            </div>
+            <button class="carousel-btn prev" onclick="prevSlide()" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer;">&#10094;</button>
+            <button class="carousel-btn next" onclick="nextSlide()" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer;">&#10095;</button>
+        </div>
+        <div style="text-align: left; color: #8B4513; font-size: 2rem; max-width: 35%; margin: 20px auto; line-height: 1.6;">
+            <h1 style="font-size: 3rem; margin-bottom: 20px; color: #FF9A9A;">Bem-vindo à Cookies do Papai!</h1>
+            <p style="font-size: 1.5rem;">Os melhores cookies artesanais feitos com amor e ingredientes selecionados. Experimente a doçura que transforma momentos em memórias inesquecíveis.</p>
+        </div>
+    </section>
+    <script>
+        let currentSlide = 0;
+    
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-images img');
+            const totalSlides = slides.length;
+            currentSlide = (index + totalSlides) % totalSlides;
+            const offset = -currentSlide * 100;
+            document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+        }
+    
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+    
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+    
+        // comeca o primeiro slide
+        showSlide(0);
+        
+        // tempo de cada foto
+        setInterval(nextSlide, 3000);
+
+        // Redireciona para a página do carrinho ao clicar no ícone
+        function redirectToCartPage() {
+            window.location.href = 'cart.html';
+        }
+
+        // Função para mostrar notificação
+        function showCartNotification() {
+            const notif = document.getElementById('cart-notification');
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 1500);
+        }
+
+        // Função para adicionar ao carrinho
+        function addToCart(nome, preco) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const idx = cart.findIndex(item => item.nome === nome);
+            if (idx > -1) {
+                cart[idx].quantidade += 1;
+            } else {
+                cart.push({ nome, preco, quantidade: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showCartNotification();
+        }
+
+        // Atualiza o contador do carrinho
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let count = cart.reduce((sum, item) => sum + item.quantidade, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+        // ...funções modais já existentes...
+        function openAbout() {
+            document.getElementById('about-modal').style.display = 'flex';
+        }
+        function closeAbout() {
+            document.getElementById('about-modal').style.display = 'none';
+        }
+        function openContact() {
+            document.getElementById('contact-modal').style.display = 'flex';
+        }
+        function closeContact() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+    </script>
+    <style>
+        .carousel-images img {
+            border-radius: 15px;
+        }
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+    <section class="produtos">
+        <h3 style="font-size: 3rem; color: #ff9090; margin-bottom: 30px; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+            🍪 Explore Nossos Cookies 🍪
+        </h3>
+        <div class="images">
+            <div class="cookie">
+                <img src="traaaad.jfif" alt="Tradicional" style="width: 500px; height: 350px; border-radius: 10px;">
+                <h3 style="color: #A66E38 ; font-size: 1.8em; font-weight: bold;">Tradicional</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">Um cookie clássico! Massa tradicional da casa, crocante por fora e super cremoso por dentro. Com muitas gotas de chocolate ao leite.</p>
+                <span class="price">R$ 12,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Nutella', 15.00)">Adicionar ao Carrinho</button>
+                
+            </div>
+            <div class="cookie highlight" style="border: 2px solid #FFC93C; background-color: #FFF8DC; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+                <img src="nut.jpeg" alt="Nutella">
+                <h3 style="color: #FFC93C; font-size: 1.8em; font-weight: bold;">Nutella - O Mais Vendido!</h3>
+                <p style="font-size: 1.1em; color:  #8B4513;">Nosso cookie clássico, recheado com nutella de verdade.</p>
+                <span class="price">R$ 15,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #FFC93C; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Nutella', 15.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="ban.jpeg" alt="Banana">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Banana</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">O queridinho: Massa da casa com toque de canela e gotas de chocolate branco. Recheado com doce de leite argentino e rodelas de banana. Finalizado com chocolate branco maçaricado.</p>
+                <span class="price">R$ 16,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Banana', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="red.jpeg" alt="Red Velvet" style="width: 500px; height: 350px; border-radius: 10px;">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Red Velvet</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">Um cookie que irá conquistar seu paladar! Massa especial de red velvet com toque de baunilha e muitas gotas de chocolate branco. recheado com brigadeiro de cream cheese e geléia de furtas vermelhas.</p>
+                <span class="price">R$ 16,00</span>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Red Velvet', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="pis.jpeg" alt="Pistache" width="106" height="350">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Pistache</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">O cookie do momento! Massa tradicional com gotas de chocolate branco e pedaços de pistahe. recheado com brigadiero de pistache com muitos pedaços de pistache. É pistache que não acaba mais!</p>
+                <span class="price">R$ 18,00</span>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Pistache', 18.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="oreo.jpeg" alt="Oreo" style="width: 500px; height: 350px; border-radius: 10px;">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Oreo</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">Massa de cacau com gotas de chocolate ao leite  branco, recheado com muita nutella e pedacinhos de bolacha oreo. imperdível!</p>
+                <span class="price">R$ 17,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Oreo', 17.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="nozes.jpeg" alt="Nozes com Doce de Leite">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Nozes com Doce de Leite</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">Massa especial com nozes picadas levemente torradas e gostas de chocolate branco. recheado com doce de leite argentino.</p>
+                <span class="price">R$ 17,00</span>
+                <br>
+                <br>
+
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Nozes com Doce de Leite', 17.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="prest.jpeg" alt="Prestígio" style="width: 500px; height: 350px; border-radius: 10px;">
+                <h3 style="color: #A66E38; font-size: 1.8em; font-weight: bold;">Prestígio</h3>
+                <p style="font-size: 1.1em; color: #A66E38;">Massa de cacau, recheado com deicioso brigadeiro de coco, coberto com pasta de prestígio e coco ralado.</p>
+                <span class="price">R$ 16,00</span>
+                <br>
+                <br>
+                <button style="background-color: #A66E38; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Prestígio', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </section> 
+
+    <footer>
+        <p><center>&copy; 2025 Cookies Artesanais | Todos os direitos reservados.</center></p>
+    </footer>
+    <script>
+        function openAbout() {
+            document.getElementById('about-modal').style.display = 'flex';
+        }
+
+        function closeAbout() {
+            document.getElementById('about-modal').style.display = 'none';
+        }
+
+        function openContact() {
+            document.getElementById('contact-modal').style.display = 'flex';
+        }
+
+        function closeContact() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

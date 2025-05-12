@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Cookies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ff9090; /* Alterado */
+            color: #592203; /* Marrom */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            
+        }
+        h1 {
+             font-size: 2.5em;
+             margin-bottom: 20px;
+             color: #ff9090; /* Alterado */
+         }
+        header {
+            background-color: #592203;
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .cookie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .cookie {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .cookie:hover {
+            transform: scale(1.05);
+        }
+        .cookie img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .highlight {
+            background: #ffefd5; /* fundo amarelado */
+            border: 2px solid #ff4500; /* borda laranja */
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .highlight h3 {
+            color: #ff4500; /* cor laranja para o título */
+        }
+        .highlight .price {
+            color: #d2691e; /* marrom chocolate */
+            font-size: 1.2em;
+        }
+        .price {
+            font-weight: bold;
+            color: #ff9090;
+        }
+        footer {
+            background-color: #592203;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        button {
+  background-color: #592203;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 200px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-1:hover,
+.button-1:focus {
+  background-color: #F082AC;
+}
+    #loading-screen {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #ff9090; /* Alterado */
+        color: #592203;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        z-index: 9999;
+    }
+    #cart-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro */
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+    #cart-modal-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: left;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+    }
+    #cart-modal-content h2 {
+        margin-top: 0;
+        color: #592203; /* Cor do título */
+    }
+    #close-cart {
+        background-color: #592203;
+        color: white;
+        border: none;
+        padding: 5px 8px;
+        cursor: pointer;
+        border-radius: 15px;
+        float: right;
+        transition: background-color 0.3s;
+    }
+    #close-cart:hover {
+        background-color: #f2a2a2; /* Cor de fundo ao passar o mouse */
+    }
+    #cart-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+    #cart-icon img {
+        width: 50px;
+        height: 50px;
+    }
+    #cart-count {
+        position: absolute;
+        top: 65px;
+        right: 5px;
+        background-color: #ff9090; /* Alterado */
+        color: white;
+        border-radius: 50%;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+    #finalize-purchase {
+        background-color: #592203;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.1em;
+        transition: background-color 0.3s;
+    }
+    #finalize-purchase:hover {
+        background-color: #ff9090; /* Alterado */
+    }
+    #about-modal, #contact-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+    #about-modal-content, #contact-modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        text-align: left;
+    }
+    #close-about, #close-contact {
+        background-color: #592203;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        float: right;
+    }
+    </style>
+</head>
+<body>
+  
+    <header>
+        <a href="cookies.html" style="position: absolute; left: 20px; top: 20px;">
+            <img src="cookiesdopapai.png" alt="Logo da Empresa" style="width: 180px; height: 150px;">
+        </a>
+        <h1>Bem-vindo à Cookies do Papai</h1>
+        <nav>
+          <ul>
+                <li><a href="javascript:void(0)" onclick="openAbout()">Sobre</a></li>
+                <li><a href="javascript:void(0)" onclick="openContact()">Contato</a></li>
+            </ul>
+        </nav>
+        <div id="cart-icon" onclick="redirectToCartPage()">
+            <img src="carrinho.png" alt="Carrinho" style="width: 80px; height: 80px;">
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+    <div id="cart-modal">
+        <div id="cart-modal-content">
+            <button id="close-cart" onclick="closeCart()">Fechar</button>
+            <h2>Itens no Carrinho</h2>
+            <div id="cart-items"></div>
+            <h3 id="cart-total"></h3>
+            <button id="finalize-purchase" onclick="finalizePurchase()">Finalizar Compra</button>
+        </div>
+    </div>
+    <div id="about-modal">
+        <div id="about-modal-content">
+            <button id="close-about" onclick="closeAbout()">Fechar</button>
+            <h2>Sobre Nós</h2>
+            <p>Somos uma loja apaixonada por cookies, trazendo sabor e qualidade para você.</p>
+        </div>
+    </div>
+    <div id="contact-modal">
+        <div id="contact-modal-content">
+            <button id="close-contact" onclick="closeContact()">Fechar</button>
+            <h2>Contato</h2>
+            <p>Entre em contato conosco pelo e-mail: cookiesdopapai@gmail.com</p>
+        </div>
+    </div>
+    <section id="menu" class="container">
+        <h2>Nosso Menu</h2>
+        <div class="cookie-list">
+            <div class="cookie highlight" style="border: 2px solid #FFC93C; background-color: #FFF8DC; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+    <img src="trad.jpg" alt="Tradicional" style="width: 500px; height: 350px; border-radius: 10px;">
+    <h3 style="color: #FFC93C; font-size: 1.8em; font-weight: bold;">Tradicional - O Mais Vendido!</h3>
+    <p style="font-size: 1.1em; color: #592203;">Um cookie clássico! Massa tradicional da casa, crocante por fora e super cremoso por dentro. Com muitas gotas de chocolate ao leite.</p>
+    <span class="price" style="font-size: 1.2em; color: #8B4513;">R$ 12,00</span>
+    <br><br>
+    <button style="background-color: #FFC93C; color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Tradicional', 12.00)">Adicionar ao Carrinho</button>
+</div>
+
+            
+            <div class="cookie">
+                <img src="nut.jpeg" alt="Nutella">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Nutella</h3>
+                <p style="font-size: 1.1em; color: #592203;">Nosso cookie clássico, recheado com nutella de verdade.</p>
+                <span class="price">R$ 15,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Tradicional', 12.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="ban.jpeg" alt="Banana">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Banana</h3>
+                <p style="font-size: 1.1em; color: #592203;">O queridinho: Massa da casa com toque de canela e gotas de chocolate branco. Recheado com doce de leite argentino e rodelas de banana. Finalizado com chocolate branco maçaricado.</p>
+                <span class="price">R$ 16,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Banana', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="red.jpeg" alt="Red Velvet">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Red Velvet</h3>
+                <p style="font-size: 1.1em; color: #592203;">Um cookie que irá conquistar seu paladar! Massa especial de red velvet com toque de baunilha e muitas gotas de chocolate branco. recheado com brigadeiro de cream cheese e geléia de furtas vermelhas.</p>
+                <span class="price">R$ 16,00</span>
+                <br>
+                <br>
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Red Velvet', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="pis.jpeg" alt="Pistache" width="106" height="350">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Pistache</h3>
+                <p style="font-size: 1.1em; color: #592203;">O cookie do momento! Massa tradicional com gotas de chocolate branco e pedaços de pistahe. recheado com brigadiero de pistache com muitos pedaços de pistache. É pistache que não acaba mais!</p>
+                <span class="price">R$ 18,00</span>
+                <br>
+                <br>
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Pistache', 18.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="oreo.jpeg" alt="Oreo" width="106" height="350">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Oreo</h3>
+                <p style="font-size: 1.1em; color: #592203;">Massa de cacau com gotas de chocolate ao leite  branco, recheado com muita nutella e pedacinhos de bolacha oreo. imperdível!</p>
+                <span class="price">R$ 17,00</span>
+                <br>
+                <br>
+                <br>
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Oreo', 17.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <img src="nozes.jpeg" alt="Nozes com Doce de Leite">
+                <h3 style="color: #592203; font-size: 1.8em; font-weight: bold;">Nozes com Doce de Leite</h3>
+                <p style="font-size: 1.1em; color: #592203;">Massa especial com nozes picadas levemente torradas e gostas de chocolate branco. recheado com doce de leite argentino.</p>
+                <span class="price">R$ 17,00</span>
+                <br>
+                <br>
+
+                <button style="background-color: #592203; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Nozes com Doce de Leite', 17.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">

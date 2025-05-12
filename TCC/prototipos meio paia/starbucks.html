@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies do Papai - Bebidas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2a2a2;
+            color: #592203;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #592203;
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .drink-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .drink {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .drink:hover {
+            transform: scale(1.05);
+        }
+        .drink img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .price {
+            font-weight: bold;
+            color: #ff9090;
+        }
+        footer {
+            background-color: #592203;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #592203;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #F082AC;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="cookies.html" style="position: absolute; left: 20px; top: 20px;">
+            <img src="cookiesdopapai.png" alt="Logo da Empresa" style="width: 180px; height: 150px;">
+        </a>
+        <h1>Bebidas - Cookies do Papai</h1>
+        <nav>
+            <ul>
+                <li><a href="cookies.html">Home</a></li>
+                <li><a href="javascript:void(0)" onclick="openAbout()">Sobre</a></li>
+                <li><a href="javascript:void(0)" onclick="openContact()">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="menu" class="container">
+        <h2>Nossas Bebidas</h2>
+        <div class="drink-list">
+            <div class="drink">
+                <img src="latte.jpg" alt="Latte">
+                <h3>Latte</h3>
+                <p>Uma combinação perfeita de café espresso e leite vaporizado.</p>
+                <span class="price">R$ 12,00</span>
+                <br><br>
+                <button onclick="addToCart('Latte', 12.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="drink">
+                <img src="mocha.jpg" alt="Mocha">
+                <h3>Mocha</h3>
+                <p>Delicioso café com chocolate e chantilly.</p>
+                <span class="price">R$ 14,00</span>
+                <br><br>
+                <button onclick="addToCart('Mocha', 14.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="drink">
+                <img src="frappuccino.jpg" alt="Frappuccino">
+                <h3>Frappuccino</h3>
+                <p>Bebida gelada com café, leite e cobertura de chantilly.</p>
+                <span class="price">R$ 16,00</span>
+                <br><br>
+                <button onclick="addToCart('Frappuccino', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="drink">
+                <img src="cha.jpg" alt="Chá Gelado">
+                <h3>Chá Gelado</h3>
+                <p>Refrescante chá gelado com sabores variados.</p>
+                <span class="price">R$ 10,00</span>
+                <br><br>
+                <button onclick="addToCart('Chá Gelado', 10.00)">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Cookies do Papai - Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(drinkName, price) {
+            cart.push({ name: drinkName, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${drinkName} adicionado ao carrinho!`);
+        }
+    </script>
+</body>
+</html>

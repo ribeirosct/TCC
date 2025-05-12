@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho - Cookies do Papai</title>
+    <link rel="shortcut icon" href="cookiesdopapai.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce5e5;
+            color: #8B4513;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fce5e5;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff9090;
+        }
+        .cart-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff8dc;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ffe0b2;
+            padding: 15px 0;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cart-item-controls button {
+            background: #ff9090;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.3em;
+            margin-top: 25px;
+            color: #A66E38;
+        }
+        #finalize-purchase {
+            background-color: #592203;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        #finalize-purchase:hover {
+            background-color: #ff9090;
+        }
+        .empty-cart {
+            text-align: center;
+            color: #ff9090;
+            margin: 40px 0;
+        }
+        a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="note.html" style="position: absolute; left: 20px; top: 20px;">
+            <img src="cookiesdopapai.png" alt="Logo da Empresa" style="width: 120px; height: auto;">
+        </a>
+        <h1>Seu Carrinho</h1>
+        <a href="note.html" id="back-to-home" style="display:inline-block; margin: 10px 0 20px 0; background:#ff9090; color:white; padding:10px 20px; border-radius:8px; font-weight:bold;">&larr; Voltar para a página inicial</a>
+    </header>
+    <div class="cart-container" id="cart-container">
+        <!-- Itens do carrinho serão inseridos aqui -->
+    </div>
+    </div>
+    <script>
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-container');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<div class="empty-cart">Seu carrinho está vazio.<br><a href="note.html">Voltar para a loja</a></div>';
+                updateCartCount();
+                return;
+            }
+            let html = '';
+            let total = 0;
+            cart.forEach((item, idx) => {
+                total += item.preco * item.quantidade;
+                html += `
+                    <div class="cart-item">
+                        <span class="cart-item-name">${item.nome}</span>
+                        <div class="cart-item-controls">
+                            <button onclick="changeQty(${idx}, -1)">-</button>
+                            <span>${item.quantidade}</span>
+                            <button onclick="changeQty(${idx}, 1)">+</button>
+                            <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                            <button onclick="removeItem(${idx})" style="background:#A66E38;">Remover</button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `<div class="cart-total"><b>Total: R$ ${total.toFixed(2)}</b></div>
+            <button id="finalize-purchase" onclick="finalizePurchase()">Finalizar Compra</button>`;
+            cartContainer.innerHTML = html;
+            updateCartCount();
+        }
+
+        function changeQty(idx, delta) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[idx].quantidade += delta;
+            if (cart[idx].quantidade <= 0) {
+                cart.splice(idx, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeItem(idx) {
+            if (!confirm('Tem certeza que deseja remover este item do carrinho?')) return;
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function finalizePurchase() {
+            alert('Compra finalizada! Obrigado por comprar na Cookies do Papai.');
+            localStorage.removeItem('cart');
+            renderCart();
+        }
+
+        // Função para adicionar ao carrinho (igual da página principal)
+        function addToCart(nome, preco) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const idx = cart.findIndex(item => item.nome === nome);
+            if (idx > -1) {
+                cart[idx].quantidade += 1;
+            } else {
+                cart.push({ nome, preco, quantidade: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        // Atualiza o contador do carrinho (caso queira mostrar em algum lugar)
+        function updateCartCount() {
+            // Exemplo: pode ser usado para atualizar um badge se desejar
+            // let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // let count = cart.reduce((sum, item) => sum + item.quantidade, 0);
+            // document.getElementById('cart-count').textContent = count;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+</html>

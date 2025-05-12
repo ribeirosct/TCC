@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Cookies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet"> 
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFE4E1;
+            color: #6f4f37; /* Marrom */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+             font-size: 2.5em;
+             margin-bottom: 20px;
+             color: #f7b7cce1;
+         }
+        header {
+            background-color: #490f1c;
+            padding: 20px;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .cookie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .cookie {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        .cookie:hover {
+            transform: scale(1.05);
+        }
+        .cookie img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .price {
+            font-weight: bold;
+            color: #D81B60;
+        }
+        footer {
+            background-color: #FF69B4;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .cart-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #FF69B4;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        .cart-container:hover {
+            background-color: #490f1c;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo à Loja de Cookies</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="menu" class="container">
+        <h2>Nosso Menu</h2>
+        <div class="cookie-list">
+            <div class="cookie">
+                <a href="cookie-tradicional.html">
+                    <img src="img/chocolate_chip.jpg" alt="Tradicional">
+                    <h3>Tradicional</h3>
+                </a>
+                <p>Um cookie clássico! Massa tradicional da casa, crocante por fora e super cremoso por dentro. Com muitas gotas de chocolate ao leite.</p>
+                <span class="price">R$ 12,00</span>
+                <button onclick="addToCart('Tradicional', 12.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <a href="cookie-nutella.html">
+                    <img src="img/double_chocolate.jpg" alt="Nutella">
+                    <h3>Nutella</h3>
+                </a>
+                <p>Nosso cookie clássico, recheado com nutella de verdade.</p>
+                <span class="price">R$ 15,00</span>
+                <button onclick="addToCart('Nutella', 15.00)">Adicionar ao Carrinho</button>
+            </div>
+            <div class="cookie">
+                <a href="cookie-banana.html">
+                    <img src="c:\Users\Aluno\Downloads\Snapinst.app_477672545_17872250970277950_3966606621662823876_n_1080.jpg" alt="Banana">
+                    <h3>Banana</h3>
+                </a>
+                <p>O queridinho: Massa da casa com toque de canela e gotas de chocolate branco. Recheado com doce de leite argentino e rodelas de banana. Finalizado com chocolate branco maçaricado.</p>
+                <span class="price">R$ 16,00</span>
+                <button onclick="addToCart('Banana', 16.00)">Adicionar ao Carrinho</button>
+            </div>
+            <!-- Adicione os outros cookies aqui -->
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2>Sobre Nós</h2>
+        <p>Somos uma loja apaixonada por cookies, trazendo sabor e qualidade para você.</p>
+    </section>
+    
+    <section id="contact" class="container">
+        <h2>Contato</h2>
+        <p>Entre em contato conosco pelo e-mail: contato@lojadecookies.com</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Loja de Cookies - Todos os direitos reservados.</p>
+        <div class="cart-container" onclick="viewCart()">
+            <p>Carrinho (<span id="cart-count">0</span>)</p>
+        </div>
+    </footer>
+
+    <div class="cart-container" onclick="viewCart()">
+        <p>Carrinho (<span id="cart-count">0</span>)</p>
+    </div>
+
+    <script>
+        let cart = [];
+
+        // Função para adicionar item ao carrinho
+        function addToCart(cookieName, price) {
+            cart.push({ name: cookieName, price: price });
+            document.getElementById("cart-count").innerText = cart.length;
+            alert(`${cookieName} adicionado ao carrinho!`);
+        }
+
+        // Função para visualizar o carrinho (aqui pode ser uma página de checkout ou um modal)
+        function viewCart() {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+            let cartDetails = "Itens no Carrinho:\n";
+            let total = 0;
+            cart.forEach(item => {
+                cartDetails += `${item.name} - R$ ${item.price}\n`;
+                total += item.price;
+            });
+            cartDetails += `\nTotal: R$ ${total.toFixed(2)}`;
+            alert(cartDetails);
+        }
+    </script>
+</body>
+</html>
