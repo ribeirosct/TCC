@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+body {
+    font-family: 'Fredoka', Arial, sans-serif;
+    background-color: #fce5e5;
+    color: #532f2f;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.5px;
+}
+header {
+    background-color: #fce5e5;
+    padding: 20px 0 40px 0;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 12px #ff909033;
+}
+h1 {
+    color: #ff9090;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+#back-to-home {
+    display: inline-block;
+    margin: 10px 0 20px 0;
+    background: #ff9090;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px #ff909055;
+    transition: background 0.2s, color 0.2s;
+}
+#back-to-home:hover {
+    background: #fff8dc;
+    color: #ff9090;
+    border: 1px solid #ff9090;
+}
+.cart-container {
+    max-width: 700px;
+    margin: 40px auto 60px auto;
+    background: #fff8dc;
+    border-radius: 18px;
+    box-shadow: 0px 8px 32px #ff909033;
+    padding: 36px 30px 30px 30px;
+    min-height: 200px;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid #ffe0b2;
+    padding: 18px 0 12px 0;
+    transition: background 0.2s;
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+.cart-item-name {
+    font-weight: 600;
+    font-size: 1.18em;
+    color: #8B4513;
+    flex: 2;
+    text-align: left;
+}
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 2;
+    justify-content: flex-end;
+}
+.cart-item-controls button {
+    background: #ff9090;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 7px 13px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px #ff909055;
+}
+.cart-item-controls button:hover {
+    background: #8B4513;
+    color: #fff8dc;
+    transform: scale(1.08);
+}
+.cart-item-controls span {
+    min-width: 32px;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.1em;
+    color: #532f2f;
+}
+.cart-item-controls .cart-remove-btn {
+    background: #fff8dc;
+    color: #ff9090;
+    border: 1.5px solid #ff9090;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.98em;
+    margin-left: 10px;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.cart-item-controls .cart-remove-btn:hover {
+    background: #ff9090;
+    color: #fff;
+    border: 1.5px solid #8B4513;
+}
+.cart-item-controls .cart-price {
+    font-weight: 600;
+    color: #d2691e;
+    margin: 0 10px;
+    font-size: 1.08em;
+}
+.cart-total {
+    text-align: right;
+    font-size: 1.35em;
+    margin-top: 30px;
+    color: #A66E38;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#finalize-purchase {
+    background-color: #ff9090;
+    color: #fff;
+    border: none;
+    padding: 16px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 28px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.15em;
+    font-weight: bold;
+    box-shadow: 0 2px 12px #ff909055;
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 1px;
+}
+#finalize-purchase:hover {
+    background-color: #8B4513;
+    color: #fff8dc;
+}
+.empty-cart {
+    text-align: center;
+    color: #ff9090;
+    margin: 60px 0 40px 0;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+.empty-cart a {
+    color: #8B4513;
+    text-decoration: underline;
+    font-weight: bold;
+    margin-top: 18px;
+    display: inline-block;
+    font-size: 1.1em;
+}
+.empty-cart a:hover {
+    color: #ff9090;
+}
+@media (max-width: 600px) {
+    .cart-container {
+        padding: 18px 5vw 18px 5vw;
+    }
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .cart-item-controls {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+    .cart-total {
+        font-size: 1.1em;
+    }
+    #finalize-purchase {
+        font-size: 1em;
+        padding: 12px 0;
+    }
+}
+
+header h1, h1, .cart-item-name, #finalize-purchase, #back-to-home, .cart-total, .empty-cart, .cart-item-controls button, .cart-item-controls .cart-remove-btn {
+    font-family: 'Fredoka', Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.cart-item-controls span, .cart-item-controls .cart-price {
+    font-family: 'Fredoka', Arial, sans-serif;
+}

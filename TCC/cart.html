@@ -4,99 +4,12 @@
     <meta charset="UTF-8">
     <title>Carrinho - Cookies do Papai</title>
     <link rel="shortcut icon" href="cookiesdopapai.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fce5e5;
-            color: #8B4513;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #fce5e5;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #ff9090;
-        }
-        .cart-container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #fff8dc;
-            border-radius: 15px;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-            padding: 30px;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ffe0b2;
-            padding: 15px 0;
-        }
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-item-name {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .cart-item-controls button {
-            background: #ff9090;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .cart-total {
-            text-align: right;
-            font-size: 1.3em;
-            margin-top: 25px;
-            color: #A66E38;
-        }
-        #finalize-purchase {
-            background-color: #592203;
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: block;
-            width: 100%;
-            text-align: center;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-        }
-        #finalize-purchase:hover {
-            background-color: #ff9090;
-        }
-        .empty-cart {
-            text-align: center;
-            color: #ff9090;
-            margin: 40px 0;
-        }
-        a {
-            color: #8B4513;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="cart-css.css">
 </head>
 <body>
     <header>
         <a href="note.html" style="position: absolute; left: 20px; top: 20px;">
-            <img src="cookiesdopapai.png" alt="Logo da Empresa" style="width: 120px; height: auto;">
+            <img src="imagens/cookiesdopapai.png" alt="Logo da Empresa" style="width: 120px; height: auto;">
         </a>
         <h1>Seu Carrinho</h1>
         <a href="note.html" id="back-to-home" style="display:inline-block; margin: 10px 0 20px 0; background:#ff9090; color:white; padding:10px 20px; border-radius:8px; font-weight:bold;">&larr; Voltar para a página inicial</a>
@@ -104,8 +17,22 @@
     <div class="cart-container" id="cart-container">
         <!-- Itens do carrinho serão inseridos aqui -->
     </div>
+    <!-- Modal de confirmação de remoção -->
+    <div id="remove-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:9999;">
+        <div style="background:#fff8dc; border-radius:16px; padding:32px 28px; box-shadow:0 8px 32px #ff909033; max-width:350px; width:90%; text-align:center; border:2px solid #ff9090;">
+            <h3 style="color:#ff9090; margin-bottom:18px;">Remover produto</h3>
+            <p id="remove-modal-msg" style="color:#532f2f; margin-bottom:28px;">Tem certeza que deseja remover este item do carrinho?</p>
+            <button id="remove-confirm-btn" style="background:#ff9090; color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:1em; font-weight:bold; margin-right:12px; cursor:pointer;">Remover</button>
+            <button onclick="closeRemoveModal()" style="background:#fff8dc; color:#ff9090; border:1.5px solid #ff9090; border-radius:8px; padding:10px 24px; font-size:1em; font-weight:bold; cursor:pointer;">Cancelar</button>
+        </div>
+    </div>
+    <!-- Notificação de remoção -->
+    <div id="cart-remove-notification" style="display:none; position:fixed; top:30px; right:30px; background:#ff9090; color:white; padding:18px 30px; border-radius:10px; font-size:1.2em; z-index:9999; box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+        Item removido do carrinho!
     </div>
     <script>
+        let removeIdx = null;
+
         function renderCart() {
             const cartContainer = document.getElementById('cart-container');
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -122,11 +49,11 @@
                     <div class="cart-item">
                         <span class="cart-item-name">${item.nome}</span>
                         <div class="cart-item-controls">
-                            <button onclick="changeQty(${idx}, -1)">-</button>
+                            <button onclick="changeQty(${idx}, -1)" title="Diminuir quantidade">-</button>
                             <span>${item.quantidade}</span>
-                            <button onclick="changeQty(${idx}, 1)">+</button>
-                            <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
-                            <button onclick="removeItem(${idx})" style="background:#A66E38;">Remover</button>
+                            <button onclick="changeQty(${idx}, 1)" title="Aumentar quantidade">+</button>
+                            <span class="cart-price">R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                            <button class="cart-remove-btn" onclick="openRemoveModal(${idx})">Remover</button>
                         </div>
                     </div>
                 `;
@@ -137,21 +64,48 @@
             updateCartCount();
         }
 
+        function showRemoveNotification() {
+            const notif = document.getElementById('cart-remove-notification');
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 1500);
+        }
+
         function changeQty(idx, delta) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart[idx].quantidade += delta;
             if (cart[idx].quantidade <= 0) {
                 cart.splice(idx, 1);
+                showRemoveNotification();
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             renderCart();
         }
 
-        function removeItem(idx) {
-            if (!confirm('Tem certeza que deseja remover este item do carrinho?')) return;
+        // Função para abrir o modal de confirmação de remoção
+        function openRemoveModal(idx) {
+            removeIdx = idx;
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.splice(idx, 1);
+            const nome = cart[idx]?.nome || '';
+            document.getElementById('remove-modal-msg').textContent = `Tem certeza que deseja remover "${nome}" do carrinho?`;
+            document.getElementById('remove-modal').style.display = 'flex';
+        }
+
+        // Função para fechar o modal
+        function closeRemoveModal() {
+            document.getElementById('remove-modal').style.display = 'none';
+            removeIdx = null;
+        }
+
+        // Função chamada ao confirmar remoção
+        function confirmRemoveItem() {
+            if (removeIdx === null) return;
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(removeIdx, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
+            closeRemoveModal();
+            showRemoveNotification();
             renderCart();
         }
 
@@ -182,7 +136,10 @@
             // document.getElementById('cart-count').textContent = count;
         }
 
-        document.addEventListener('DOMContentLoaded', renderCart);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+            document.getElementById('remove-confirm-btn').onclick = confirmRemoveItem;
+        });
     </script>
 </body>
 </html>

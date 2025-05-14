@@ -38,8 +38,7 @@
             
             Decidimos testar a aceitação do público em um final de semana, oferecendo nossos cookies para venda. O resultado foi um grande sucesso, com muitas pessoas demonstrando interesse e realizando compras. Diante dessa recepção positiva, resolvemos transformar essa paixão em um negócio.  
             
-            Nossa identidade visual reflete a essência da marca: a logomarca traz o "Papai" ao lado de nossas duas filhas, Maria Tereza e Maria Luíza, simbolizando o amor e a dedicação que estão presentes em cada cookie que produzimos.</p>
-            <img src="imagens/fami.jfif" alt="Sobre Nós" style="width: 50%; max-width: 1000px; border-radius: 10px; margin-bottom: 20px;">
+            Nossa identidade visual reflete a essência da marca: a logomarca traz o "Papai" ao lado de nossas duas filhas, Maria Tereza e Maria Luíza, simbolizando o amor e a dedicação que estão presentes em cada cookie que produzimos.</p>         
     </div>
 </div>
 
@@ -53,7 +52,21 @@
             <br>
             (14)99458-9658
         </p>
-  
+        <!-- Redes Sociais -->
+        <div style="margin-top: 25px;">
+            <h3 style="color: #975a37; margin-bottom: 10px;">Siga a gente nas redes sociais:</h3>
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 10px;">
+                <a href="https://www.instagram.com/cookiesdopapai" target="_blank" title="Instagram">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:40px; height:40px; filter: invert(60%) sepia(80%) saturate(400%) hue-rotate(300deg);">
+                </a>
+                <a href="https://wa.me/5514994589658" target="_blank" title="WhatsApp">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" style="width:40px; height:40px; filter: invert(60%) sepia(80%) saturate(400%) hue-rotate(90deg);">
+                </a>
+                <a href="https://www.facebook.com/cookiesdopapai" target="_blank" title="Facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="width:40px; height:40px; filter: invert(60%) sepia(80%) saturate(400%) hue-rotate(200deg);">
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -189,99 +202,89 @@
             }
         }
     </script>
-    <style>
-        .carousel-images img {
-            border-radius: 15px;
-        }
-        .carousel-btn:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-    </style>
     <section class="produtos">
         <h3 id="produtos" style="font-size: 3rem; color: #ff9090; margin-bottom: 30px; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); ">
-            🍪 Explore Nossos Cookies 🍪
+            🤎 Explore Nossos Cookies 🤎
         </h3>
         <div class="images">
             <div class="cookie">
-                <img src="imagens/cookies/traaaad.jfif" alt="Tradicional" style="width: 500px; height: 350px; border-radius: 10px;">
+                <img src="imagens/cookies/traaaad.jfif" alt="Tradicional">
                 <h3 style="color: #532f2f ; font-size: 1.8em; font-weight: bold;">Tradicional</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">Um cookie clássico! Massa tradicional da casa, crocante por fora e super cremoso por dentro. Com muitas gotas de chocolate ao leite.</p>
                 <span class="price">R$ 12,00</span>
                 <br>
                 <br>
-                <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Tradicional', 12.00)">Adicionar ao Carrinho</button>
-                
+                <button class="bt" onclick="openProductModal('Tradicional', 'imagens/cookies/traaaad.jfif', 'Um cookie clássico! Massa tradicional da casa, crocante por fora e super cremoso por dentro. Com muitas gotas de chocolate ao leite.', 12.00)">Ver mais detalhes</button>
             </div>
             <div class="cookie highlight" style="border: 2px solid #FFC93C; background-color: #FFF8DC; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
                 <img src="imagens/cookies/nut.jpeg" alt="Nutella">
                 <h3 style="color: #FFC93C; font-size: 1.8em; font-weight: bold;">Nutella - O Mais Vendido!</h3>
-                <p style="font-size: 1.1em; color:  #8B4513;">Nosso cookie clássico, recheado com nutella de verdade.</p>
                 <span class="price">R$ 15,00</span>
                 <br>
                 <br>
-                <br>
-                <button style="background-color: #FFC93C; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Nutella', 15.00)">Adicionar ao Carrinho</button>
+                <button style="background-color: #FFC93C; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s; font-family: 'Fredoka', Arial, sans-serif; font-weight: 600;"  onclick="openProductModal('Nutella', 'imagens/cookies/nut.jpeg', 'Nosso cookie clássico, recheado com nutella de verdade.', 15.00)">Ver mais detalhes</button>
             </div>
             <div class="cookie">
                 <img src="imagens/cookies/ban.jpeg" alt="Banana">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Banana</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">O queridinho: Massa da casa com toque de canela e gotas de chocolate branco. Recheado com doce de leite argentino e rodelas de banana. Finalizado com chocolate branco maçaricado.</p>
                 <span class="price">R$ 16,00</span>
                 <br>
                 <br>
-                <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Banana', 16.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Banana', 'imagens/cookies/ban.jpeg', 'O queridinho: Massa da casa com toque de canela e gotas de chocolate branco. Recheado com doce de leite argentino e rodelas de banana. Finalizado com chocolate branco maçaricado.', 16.00)">Ver mais detalhes</button>
             </div>
-            <div class="cookie">
-                <img src="imagens/cookies/red.jpeg" alt="Red Velvet" style="width: 500px; height: 350px; border-radius: 10px;">
+            <div class="cookie" >
+                <img src="imagens/cookies/red.jpeg" alt="Red Velvet">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Red Velvet</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">Um cookie que irá conquistar seu paladar! Massa especial de red velvet com toque de baunilha e muitas gotas de chocolate branco. recheado com brigadeiro de cream cheese e geléia de furtas vermelhas.</p>
                 <span class="price">R$ 16,00</span>
                 <br>
                 <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;" onclick="addToCart('Red Velvet', 16.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Red Velvet', 'imagens/cookies/red.jpeg', 'Um cookie que irá conquistar seu paladar! Massa especial de red velvet com toque de baunilha e muitas gotas de chocolate branco. recheado com brigadeiro de cream cheese e geléia de furtas vermelhas.', 16.00)">Ver mais detalhes</button>
             </div>
-            <div class="cookie">
-                <img src="imagens/cookies/pis.jpeg" alt="Pistache" width="106" height="350">
+            <div class="cookie" ">
+                <img src="imagens/cookies/pis.jpeg" alt="Pistache">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Pistache</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">O cookie do momento! Massa tradicional com gotas de chocolate branco e pedaços de pistahe. recheado com brigadiero de pistache com muitos pedaços de pistache. É pistache que não acaba mais!</p>
                 <span class="price">R$ 18,00</span>
                 <br>
                 <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Pistache', 18.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Pistache', 'imagens/cookies/pis.jpeg', 'O cookie do momento! Massa tradicional com gotas de chocolate branco e pedaços de pistahe. recheado com brigadiero de pistache com muitos pedaços de pistache. É pistache que não acaba mais!', 18.00)">Ver mais detalhes</button>
             </div>
             <div class="cookie">
-                <img src="imagens/cookies/oreo.jpeg" alt="Oreo" style="width: 500px; height: 350px; border-radius: 10px;">
+                <img src="imagens/cookies/oreo.jpeg" alt="Oreo">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Oreo</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">Massa de cacau com gotas de chocolate ao leite  branco, recheado com muita nutella e pedacinhos de bolacha oreo. imperdível!</p>
                 <span class="price">R$ 17,00</span>
                 <br>
                 <br>
-                <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Oreo', 17.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Oreo', 'imagens/cookies/oreo.jpeg', 'Massa de cacau com gotas de chocolate ao leite  branco, recheado com muita nutella e pedacinhos de bolacha oreo. imperdível!', 17.00)">Ver mais detalhes</button>
             </div>
             <div class="cookie">
                 <img src="imagens/cookies/nozes.jpeg" alt="Nozes com Doce de Leite">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Nozes com Doce de Leite</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">Massa especial com nozes picadas levemente torradas e gostas de chocolate branco. recheado com doce de leite argentino.</p>
                 <span class="price">R$ 17,00</span>
                 <br>
                 <br>
-
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Nozes com Doce de Leite', 17.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Nozes com Doce de Leite', 'imagens/cookies/nozes.jpeg', 'Massa especial com nozes picadas levemente torradas e gostas de chocolate branco. recheado com doce de leite argentino.', 17.00)">Ver mais detalhes</button>
             </div>
             <div class="cookie">
-                <img src="imagens/cookies/prest.jpeg" alt="Prestígio" style="width: 500px; height: 350px; border-radius: 10px;">
+                <img src="imagens/cookies/prest.jpeg" alt="Prestígio">
                 <h3 style="color: #532f2f; font-size: 1.8em; font-weight: bold;">Prestígio</h3>
-                <p style="font-size: 1.1em; color: #532f2f;">Massa de cacau, recheado com deicioso brigadeiro de coco, coberto com pasta de prestígio e coco ralado.</p>
                 <span class="price">R$ 16,00</span>
                 <br>
                 <br>
-                <button style="background-color: #532f2f; padding: 10px 20px; border: none; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;"onclick="addToCart('Prestígio', 16.00)">Adicionar ao Carrinho</button>
+                <button class="bt" onclick="openProductModal('Prestígio', 'imagens/cookies/prest.jpeg', 'Massa de cacau, recheado com deicioso brigadeiro de coco, coberto com pasta de prestígio e coco ralado.', 16.00)"">Ver mais detalhes</button>
             </div>
         </div>
     </section> 
+
+    <!-- Modal do Produto -->
+    <div id="product-modal">
+        <div id="product-modal-content">
+            <button id="close-product" onclick="closeProductModal()">Fechar</button>
+            <h2 id="product-modal-title"></h2>
+            <img id="product-modal-image" src="" alt="Cookie">
+            <div class="product-desc" id="product-modal-description"></div>
+            <div class="product-price" id="product-modal-price"></div>
+            <button class="add-cart-btn" onclick="addToCartFromModal()">Adicionar ao carrinho</button>
+        </div>
+    </div>
 
     <footer>
         <p><center>&copy; 2025 Cookies Artesanais | Todos os direitos reservados.</center></p>
@@ -302,6 +305,26 @@
         function closeContact() {
             document.getElementById('contact-modal').style.display = 'none';
         }
-    </script>
+
+
+    function openProductModal(name, image, description, price) {
+        selectedProduct = { name, image, description, price };
+        document.getElementById('product-modal-title').textContent = name;
+        document.getElementById('product-modal-image').src = image;
+        document.getElementById('product-modal-image').alt = name;
+        document.getElementById('product-modal-description').textContent = description;
+        document.getElementById('product-modal-price').textContent = `R$ ${price.toFixed(2)}`;
+        document.getElementById('product-modal').style.display = 'flex';
+    }
+
+    function closeProductModal() {
+        document.getElementById('product-modal').style.display = 'none';
+    }
+
+    function addToCartFromModal() {
+        addToCart(selectedProduct.name, selectedProduct.price, 1);
+        closeProductModal();
+    }
+</script>
 </body>
 </html>
